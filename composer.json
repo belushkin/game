@@ -1,0 +1,11 @@
+{
+    "require": {
+        "mockery/mockery": "0.9.*",
+        "hamcrest/hamcrest-php": "~1.2",
+        "phpunit/phpunit": "~4.4"
+    },
+
+    "autoload": {
+        "psr-4": {"esky\\": ""}
+    }
+}
