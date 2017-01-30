@@ -1,6 +1,6 @@
 <?php
 
-namespace game\Hills;
+namespace game\Figures\Hills;
 
 class Pingo
 {

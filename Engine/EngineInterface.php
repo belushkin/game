@@ -5,9 +5,6 @@ namespace game\Engine;
 interface EngineInterface
 {
 
-    public function run()
-    {
-
-    }
+    public function run();
 
 }

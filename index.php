@@ -16,23 +16,14 @@ require 'vendor/autoload.php';
 // Unfortunately it is not possible to read left/right/up/down keys that way
 putenv('TERM=xterm-color');
 
-class Game
-{
-    private $engine;
-
-    public function setEngine($engine)
-    {
-        $this->engine = $engine;
-    }
-
-    public function run()
-    {
-
-    }
-
-}
 
 
+
+$game = new App();
+$game->setEngine(new game\Engine\Ncurses(array(
+    \game\Figures\Airplanes\AirplaneFactory::build('Fighter'),
+)));
+$game->run();
 
 
 class Aircraft {
@@ -130,10 +121,6 @@ class Aircraft {
                 $this->hills[$i][] = $j ;
             }
         }
-        //echo $this->boardSize[0];
-//        print_r($this->hills[31]);
-        //echo "ddd";
-//        exit();
 
         $this->movementX = 0;
         $this->movementY = 0;

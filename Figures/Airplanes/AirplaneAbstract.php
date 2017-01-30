@@ -1,6 +1,6 @@
 <?php
 
-namespace game\Figures;
+namespace game\Figures\Airplanes;
 
 abstract class AirplaneAbstract
 {
