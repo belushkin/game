@@ -4,34 +4,59 @@ namespace game\Figures;
 
 class AsciiOutputter implements
     \game\Figures\OutputterInterface,
-    \game\Figures\FigureEngineInterface
+    \game\Figures\FigurePresentationInterface,
+    \game\Figures\FigureMovesInterface
 {
 
-    private $engine;
+    private $presentation;
+    private $x = 0;
+    private $y = 0;
 
-    public function setEngine(\game\Engine\EngineInterface $engine)
+    public function setPresentation(\game\Figures\PresentationInterface $presentation)
     {
-        $this->engine = $engine;
+        $this->presentation = $presentation;
     }
 
-    public function getEngine(\game\Engine\EngineInterface $engine)
+    public function getPresentation()
     {
-        return $this->engine;
+        return $this->presentation;
     }
 
-    public function draw()
+    public function setX($x)
     {
-        $this->engine->clear();
-        $this->engine->getDimensions();
+        $this->x = $x;
+    }
 
-        ncurses_wattron($this->window, NCURSES_A_REVERSE);
-        // draw dots
-        for ($i = 0; $i < $winy; $i++) {
-            for ($j = 0; $j < $winx; $j++) {
-                $this->engine->echoString($i, $j, '.');
+    public function setY($y)
+    {
+        $this->y = $y;
+    }
+
+    public function getX()
+    {
+        return $this->x;
+    }
+
+    public function getY()
+    {
+        return $this->y;
+    }
+
+    public function draw(\game\Engine\EngineInterface $engine)
+    {
+        $matrix = $this->presentation->getPresentation();
+
+        for ($i = 0; $i < $this->presentation->getHeight(); $i++) {
+            for ($j = 0; $j < $this->presentation->getWidth(); $j++) {
+                if (is_string($matrix)) {
+                    $engine->echoString($i, $j, $matrix);
+                } else {
+                    $engine->echoString($this->getY() + $i, $this->getX() + $j, $matrix[$i][$j]);
+                }
+
             }
+            //$engine->echoString($i, $j, "\n");
         }
-        ncurses_wattroff($this->window, NCURSES_A_REVERSE);
     }
 
 }

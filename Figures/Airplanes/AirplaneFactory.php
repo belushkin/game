@@ -10,9 +10,13 @@ class AirplaneFactory
 
     public static function build($airplane)
     {
-        if (class_exists('\game\Figures\Airplanes\\' . $airplane)) {
+        $airplane = '\game\Figures\Airplanes\\' . $airplane;
+        if (class_exists($airplane)) {
             $object = new $airplane();
-            $object->setOutputter(new \game\Figures\Airplanes\AirplaneOutputter());
+            $outputter = new \game\Figures\AsciiOutputter();
+            $outputter->setPresentation(new \game\Figures\Airplanes\FighterPresentation());
+            $object->setOutputter($outputter);
+            $object->setPropellant(new \game\Figures\Airplanes\AirplanePropellant($object));
             return $object;
         } else {
             throw new \Exception("Invalid airplane type given.");

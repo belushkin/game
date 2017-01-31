@@ -4,45 +4,17 @@ namespace game\Figures\Airplanes;
 
 class Fighter extends \game\Figures\Airplanes\AirplaneAbstract implements
     \game\Figures\FigureOutputterInterface,
-    \game\Figures\FigureInterface,
-    \game\Figures\FigureMovesInterface
+    \game\Figures\FigurePropellantInterface,
+    \game\Figures\FigureInterface
 {
 
-    private $plane = array();
     private $outputter;
-    private $x = 0;
-    private $y = 0;
+    private $propellant;
 
     public function init()
     {
-        // Create the initial plane
-        $this->plane = array(
-            array(5, 5),
-            array(6, 5)
-        );
-        $this->setX(0);
-        $this->setY(0);
-    }
-
-    private function setX($x)
-    {
-        $this->x = $x;
-    }
-
-    private function setY($y)
-    {
-        $this->y = $y;
-
-    }
-
-    private function getX()
-    {
-        return $this->x;
-    }
-
-    private function getY()
-    {
-        return $this->y;
+        $this->getOutputter()->setX(10);
+        $this->getOutputter()->setY(10);
     }
 
     public function setOutputter(\game\Figures\OutputterInterface $outputter)
@@ -50,29 +22,19 @@ class Fighter extends \game\Figures\Airplanes\AirplaneAbstract implements
         $this->outputter = $outputter;
     }
 
-    public function getOutputter(\game\Figures\OutputterInterface $outputter)
+    public function getOutputter()
     {
         return $this->outputter;
     }
 
-    public function up()
+    public function setPropellant(\game\Figures\PropellantInterface $propellant)
     {
-
+        $this->propellant = $propellant;
     }
 
-    public function down()
+    public function getPropellant()
     {
-
-    }
-
-    public function left()
-    {
-
-    }
-
-    public function right()
-    {
-
+        return $this->propellant;
     }
 
 }

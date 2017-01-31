@@ -5,9 +5,9 @@ namespace game\Figures;
 interface FigureMovesInterface
 {
 
-    public function up();
-    public function down();
-    public function left();
-    public function right();
+    public function setX($x);
+    public function setY($y);
+    public function getX();
+    public function getY();
 
 }

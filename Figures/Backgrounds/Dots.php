@@ -18,7 +18,7 @@ class Dots extends \game\Figures\Backgrounds\BackgroundAbstract implements
         $this->outputter = $outputter;
     }
 
-    public function getOutputter(\game\Figures\OutputterInterface $outputter)
+    public function getOutputter()
     {
         return $this->outputter;
     }
