@@ -2,7 +2,7 @@
 
 namespace game\Engine;
 
-class Ncurses
+class Ncurses implements EngineInterface
 {
 
     private $window;
@@ -22,6 +22,8 @@ class Ncurses
     {
         foreach ($this->figures as $figure) {
             $figure->init();
+            $figure->getPropellant()->setWindowHeight($this->boardSize[1]);
+            $figure->getPropellant()->setWindowWidth($this->boardSize[0]);
         }
     }
 
@@ -48,8 +50,8 @@ class Ncurses
 
         while(true)
         {
-            //$this->handleMovement();
-
+            $this->handleKeys();
+            $this->handleMovement();
             $this->draw();
 
             // Delay for 150ms
@@ -73,7 +75,7 @@ class Ncurses
 
         foreach ($this->figures as $figure) {
             ncurses_wattron($this->window, NCURSES_A_REVERSE);
-            $figure->getOutputter->draw($this);
+            $figure->getOutputter()->draw($this);
             ncurses_wattroff($this->window, NCURSES_A_REVERSE);
         }
 
@@ -83,6 +85,27 @@ class Ncurses
 
         // Refresh
         ncurses_wrefresh($this->window);
+    }
+
+    public function handleMovement()
+    {
+        foreach ($this->figures as $figure) {
+            $figure->getPropellant()->handleMovement();
+        }
+    }
+
+    public function handleKeys()
+    {
+        // Since ncurses_getch blocks the execution until the user presses any key
+        // And we need to refresh the screen in between key presses
+        // We need to use some other asynchronous method
+        $file = fopen('php://stdin', 'r');
+        stream_set_blocking($file, false);
+        $key = fread($file, 1);
+
+        foreach ($this->figures as $figure) {
+            $figure->getPropellant()->handleKeys($key);
+        }
     }
 
     public function echoString($y, $x, $string = '')

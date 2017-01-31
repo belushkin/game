@@ -6,6 +6,6 @@
     },
 
     "autoload": {
-        "psr-4": {"esky\\": ""}
+        "psr-4": {"game\\": ""}
     }
 }
