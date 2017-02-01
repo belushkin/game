@@ -2,7 +2,7 @@
 
 namespace game\Figures\Airplanes;
 
-class AirplanePropellant implements \game\Figures\PropellantInterface
+class FighterPropellant implements \game\Figures\PropellantInterface
 {
 
     private $figure;
@@ -26,13 +26,29 @@ class AirplanePropellant implements \game\Figures\PropellantInterface
         $this->windowWidth = $width;
     }
 
+    public function getWindowWidth()
+    {
+        return $this->windowWidth;
+    }
+
+    public function getWindowHeight()
+    {
+        return $this->windowHeight;
+    }
+
+    public function hasEnded()
+    {
+        return $this->hasEnded;
+    }
+
+    public function start()
+    {
+        $this->hasEnded = false;
+    }
+
     public function handleKeys($key)
     {
         $targetMovementY = 0;
-
-        // Get the last chunk of a snake
-//        if(count($this->snake) > 0)
-//            $head = $this->snake[ count($this->snake) - 1 ];
 
         // Movement keys
         if($key == 'w') {
@@ -42,12 +58,10 @@ class AirplanePropellant implements \game\Figures\PropellantInterface
         }
 
         // Calculate where the new head will be
-        //$targetPosition = array(0, $head[1] + $targetMovementY);
         $targetPosition = array($this->figure->getOutputter()->getX(), $this->figure->getOutputter()->getY() + $targetMovementY);
 
         // Turn only when it's safe (there won't be a collision with a wall)
-        if(!$this->isBlocked($targetPosition))
-        {
+        if(!$this->isBlocked($targetPosition)) {
             $this->movementY = $targetMovementY;
         }
     }
@@ -65,10 +79,9 @@ class AirplanePropellant implements \game\Figures\PropellantInterface
     {
         $newPosition = array($this->figure->getOutputter()->getX(), $this->figure->getOutputter()->getY() + $this->movementY);
         // If a player hits a wall or the snake - game over
-        if($this->isBlocked($newPosition))
-        {
-            $this->hasEnded = true;
-            return;
+        if($this->isBlocked($newPosition)) {
+//            $this->hasEnded = true;
+            return false;
         }
         $this->figure->getOutputter()->setY($this->figure->getOutputter()->getY() + $this->movementY);
     }

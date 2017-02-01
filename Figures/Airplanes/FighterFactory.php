@@ -2,10 +2,7 @@
 
 namespace game\Figures\Airplanes;
 
-use \game\Figures\Airplanes\Fighter;
-use \game\Figures\Airplanes\Interceptor;
-
-class AirplaneFactory
+class FighterFactory
 {
 
     public static function build($airplane)
@@ -16,7 +13,7 @@ class AirplaneFactory
             $outputter = new \game\Figures\AsciiOutputter();
             $outputter->setPresentation(new \game\Figures\Airplanes\FighterPresentation());
             $object->setOutputter($outputter);
-            $object->setPropellant(new \game\Figures\Airplanes\AirplanePropellant($object));
+            $object->setPropellant(new \game\Figures\Airplanes\FighterPropellant($object));
             return $object;
         } else {
             throw new \Exception("Invalid airplane type given.");

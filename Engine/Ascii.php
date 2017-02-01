@@ -42,4 +42,9 @@ class Ascii implements EngineInterface
         echo $string;
     }
 
+    public function addFigure(\game\Figures\FigureInterface $figure)
+    {
+        $this->figures[] = $figure;
+    }
+
 }

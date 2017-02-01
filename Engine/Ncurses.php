@@ -8,6 +8,7 @@ class Ncurses implements EngineInterface
     private $window;
     private $boardSize = array();
     private $figures = array();
+    private $hasEnded = false;
 
     public function __construct(Array $figures = array())
     {
@@ -21,10 +22,11 @@ class Ncurses implements EngineInterface
     private function restart()
     {
         foreach ($this->figures as $figure) {
-            $figure->init();
             $figure->getPropellant()->setWindowHeight($this->boardSize[1]);
             $figure->getPropellant()->setWindowWidth($this->boardSize[0]);
+            $figure->init();
         }
+        $this->hasEnded = false;
     }
 
     public function run()
@@ -51,7 +53,9 @@ class Ncurses implements EngineInterface
         while(true)
         {
             $this->handleKeys();
-            $this->handleMovement();
+            if (!$this->hasEnded) {
+                $this->handleMovement();
+            }
             $this->draw();
 
             // Delay for 150ms
@@ -73,10 +77,12 @@ class Ncurses implements EngineInterface
         // Draw border
         ncurses_wborder($this->window, 0, 0, 0, 0, 0, 0, 0, 0);
 
-        foreach ($this->figures as $figure) {
-            ncurses_wattron($this->window, NCURSES_A_REVERSE);
-            $figure->getOutputter()->draw($this);
-            ncurses_wattroff($this->window, NCURSES_A_REVERSE);
+        if (!$this->hasEnded) {
+            foreach ($this->figures as $figure) {
+                ncurses_wattron($this->window, NCURSES_A_REVERSE);
+                $figure->getOutputter()->draw($this);
+                ncurses_wattroff($this->window, NCURSES_A_REVERSE);
+            }
         }
 
         // Not all terminals can handle disabling the cursor
@@ -89,8 +95,13 @@ class Ncurses implements EngineInterface
 
     public function handleMovement()
     {
-        foreach ($this->figures as $figure) {
+        foreach ($this->figures as $key => $figure) {
             $figure->getPropellant()->handleMovement();
+            if ($figure->getPropellant()->hasEnded()) {
+                $this->hasEnded = true;
+                $this->restart();
+                return true;
+            }
         }
     }
 
@@ -103,6 +114,11 @@ class Ncurses implements EngineInterface
         stream_set_blocking($file, false);
         $key = fread($file, 1);
 
+        if ($this->hasEnded) {
+            $this->restart();
+            return true;
+        }
+
         foreach ($this->figures as $figure) {
             $figure->getPropellant()->handleKeys($key);
         }
@@ -112,6 +128,11 @@ class Ncurses implements EngineInterface
     {
         ncurses_wmove($this->window, $y, $x);
         ncurses_waddstr($this->window, $string);
+    }
+
+    public function addFigure(\game\Figures\FigureInterface $figure)
+    {
+        $this->figures[] = $figure;
     }
 
     private function setColorSchema()
