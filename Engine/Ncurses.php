@@ -135,6 +135,11 @@ class Ncurses implements EngineInterface
         $this->figures[] = $figure;
     }
 
+    public function getFigures()
+    {
+        return $this->figures;
+    }
+
     private function setColorSchema()
     {
         ncurses_start_color();

@@ -11,6 +11,11 @@ class FighterPresentation implements \game\Figures\PresentationInterface
         array('', '|', '/', '', '')
     );
 
+    public function setPresentation(Array $presentation = array())
+    {
+        $this->presentation = $presentation;
+    }
+
     public function getPresentation()
     {
         return $this->presentation;

@@ -6,9 +6,10 @@ class FighterPropellant implements \game\Figures\PropellantInterface
 {
 
     private $figure;
+    private $movementX;
     private $movementY;
-    private $windowHeight;
-    private $windowWidth;
+    private $windowHeight = 0;
+    private $windowWidth = 0;
     private $hasEnded = false;
 
     public function __construct(\game\Figures\FigureInterface $figure)
@@ -36,6 +37,11 @@ class FighterPropellant implements \game\Figures\PropellantInterface
         return $this->windowHeight;
     }
 
+    public function getMovement()
+    {
+        return array($this->movementX, $this->movementY);
+    }
+
     public function hasEnded()
     {
         return $this->hasEnded;
@@ -61,9 +67,12 @@ class FighterPropellant implements \game\Figures\PropellantInterface
         $targetPosition = array($this->figure->getOutputter()->getX(), $this->figure->getOutputter()->getY() + $targetMovementY);
 
         // Turn only when it's safe (there won't be a collision with a wall)
-        if(!$this->isBlocked($targetPosition)) {
-            $this->movementY = $targetMovementY;
+        if($this->isBlocked($targetPosition)) {
+            return false;
         }
+
+        $this->movementY = $targetMovementY;
+        return true;
     }
 
     private function isBlocked($position)
@@ -78,7 +87,7 @@ class FighterPropellant implements \game\Figures\PropellantInterface
     public function handleMovement()
     {
         $newPosition = array($this->figure->getOutputter()->getX(), $this->figure->getOutputter()->getY() + $this->movementY);
-        // If a player hits a wall or the snake - game over
+        // If a player hits a wall game over
         if($this->isBlocked($newPosition)) {
 //            $this->hasEnded = true;
             return false;

@@ -36,6 +36,11 @@ class InterceptorPropellant implements \game\Figures\PropellantInterface
         return $this->windowHeight;
     }
 
+    public function getMovement()
+    {
+        return array($this->movementX, $this->movementY);
+    }
+
     public function hasEnded()
     {
         return $this->hasEnded;

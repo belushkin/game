@@ -13,5 +13,6 @@ interface PropellantInterface
     public function getWindowHeight();
     public function hasEnded();
     public function start();
+    public function getMovement();
 
 }

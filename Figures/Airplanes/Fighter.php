@@ -13,8 +13,10 @@ class Fighter extends \game\Figures\Airplanes\AirplaneAbstract implements
 
     public function init()
     {
-        $this->getOutputter()->setX(10);
-        $this->getOutputter()->setY(10);
+        if ($this->outputter) {
+            $this->getOutputter()->setX(10);
+            $this->getOutputter()->setY(10);
+        }
     }
 
     public function setOutputter(\game\Figures\OutputterInterface $outputter)
