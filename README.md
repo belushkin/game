@@ -4,9 +4,9 @@ Here I present several classes with basic functionality. I implemented few Desig
 #### Game
 I was inspired by this game I found on [youtube](https://www.youtube.com/watch?v=IwqQtUzDQok). Fighter fights against Interceptors with small bullets, speed increases and Interceptors attack Fighter with new and new waves until Fighter can't deal with the speed. By shooting Interceptors Player gains scrore and when Fighter bumps into Interceptor or in hills the game is over and Player's score saved into DB. Later from the menu Player can view Players score table.
 ###### How To play
-w - move Fighter UP
-s - move Fighter DOWN
-SPACE - shoot the bullet
+- w - move Fighter UP
+- s - move Fighter DOWN
+- SPACE - shoot the bullet
 
 ##Code Example
 In order to use this game you need to install Ncurses library sinse this is command line application
