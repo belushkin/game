@@ -11,6 +11,7 @@ php index.php
 - w - move Fighter UP
 - s - move Fighter DOWN
 - SPACE - shoot the bullet
+
 ###### How To quit from the game
 CTRL-C
 
