@@ -11,6 +11,9 @@ php index.php
 - w - move Fighter UP
 - s - move Fighter DOWN
 - SPACE - shoot the bullet
+###### How To quit from the game
+CTRL-C
+
 
 ##Code Example
 In order to use this game you need to install Ncurses library sinse this is command line application
