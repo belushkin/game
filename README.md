@@ -45,6 +45,7 @@ I developed this game in order to demonstrate my skills in PHP programming, test
 ##Tests
 Propellant of the plane, Ascii Outputter, Ncurses Engine, Fighter Presentation and other classes were covered by unit tests.
 In order to achieve this I have used mockery and hamcrest
+
 To lunch tests:
 ```
 vendor/bin/phpunit -c tests/phpunit.xml tests/
