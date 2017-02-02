@@ -43,7 +43,7 @@ I developed this game in order to demonstrate my skills in PHP programming, test
 - hamcrest/hamcrest-php
 
 ##Tests
-Application was not fully covered by unit tests but basci functionality was closed
+Application was not fully covered by unit tests but basic functionality was closed. Propellant of the plane, Ascii Outputter, Ncurses Engine, Fighter Presentation and other classes
 In order to achieve this I have used mockery and hamcrest
 To lunch tests:
 ```
