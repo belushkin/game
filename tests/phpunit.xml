@@ -11,7 +11,7 @@
          syntaxCheck="true">
 
     <testsuites>
-        <testsuite name="Esky.pl">
+        <testsuite name="auto1">
             <directory suffix="Test.php">./</directory>
         </testsuite>
     </testsuites>
